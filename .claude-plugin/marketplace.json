@@ -1,21 +1,31 @@
 {
   "name": "logbook",
-  "owner": { "name": "groovy-os", "url": "https://github.com/groovy-os" },
+  "owner": {
+    "name": "groovy-os",
+    "url": "https://github.com/groovy-os"
+  },
   "metadata": {
     "description": "The logbook plugin: commands and skills for running an agentic engineering loop against a hosted logbook board.",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "logbook",
       "source": "./",
-      "description": "Run the agentic engineering loop against a logbook board — file logs, explore blast radius, spec UX, plan batches, and drive build → review → fix → merge.",
+      "description": "Run the agentic engineering loop against a logbook board \u2014 file logs, explore blast radius, spec UX, plan batches, and drive build \u2192 review \u2192 fix \u2192 merge.",
       "category": "productivity",
-      "tags": ["logbook", "backlog", "mcp", "orchestration"],
-      "version": "0.1.0",
+      "tags": [
+        "logbook",
+        "backlog",
+        "mcp",
+        "orchestration"
+      ],
+      "version": "0.2.0",
       "homepage": "https://www.logbk.dev",
       "license": "LicenseRef-Proprietary",
-      "author": { "name": "groovy-os" }
+      "author": {
+        "name": "groovy-os"
+      }
     }
   ]
 }

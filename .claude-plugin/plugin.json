@@ -1,12 +1,21 @@
 {
   "name": "logbook",
-  "version": "0.1.0",
-  "description": "Run the agentic engineering loop against a logbook board: file build-ready logs, explore blast radius, spec UX, plan collision-aware batches, and drive build → review → fix → merge with an orchestrator and subagents.",
-  "author": { "name": "groovy-os", "url": "https://github.com/groovy-os" },
+  "version": "0.2.0",
+  "description": "Run the agentic engineering loop against a logbook board: file build-ready logs, explore blast radius, spec UX, plan collision-aware batches, and drive build \u2192 review \u2192 fix \u2192 merge with an orchestrator and subagents.",
+  "author": {
+    "name": "groovy-os",
+    "url": "https://github.com/groovy-os"
+  },
   "homepage": "https://www.logbk.dev",
   "repository": "https://github.com/groovy-os/logbook-plugin",
   "license": "LicenseRef-Proprietary",
-  "keywords": ["logbook", "backlog", "mcp", "orchestration", "agentic-engineering"],
+  "keywords": [
+    "logbook",
+    "backlog",
+    "mcp",
+    "orchestration",
+    "agentic-engineering"
+  ],
   "userConfig": {
     "baseBranch": {
       "type": "string",
@@ -23,7 +32,7 @@
     "webhookWired": {
       "type": "boolean",
       "title": "GitHub merge webhook is configured",
-      "description": "When true, a merged pull request closes its log automatically and the loop leaves items in_progress. When false, the loop marks items done itself — otherwise finished work is never closed.",
+      "description": "When true, a merged pull request closes its log automatically and the loop leaves items in_progress. When false, the loop marks items done itself \u2014 otherwise finished work is never closed.",
       "default": true
     }
   }

@@ -47,6 +47,8 @@ point it at the board you actually want this repo writing to.
 | `/logbook:loop` | The orchestrator: pulls a batch and drives build → review → fix → PR for each log. | You want work actually done, mostly unattended. |
 | `/logbook:merge` | Lands finished PRs in dependency order and handles the merge cascade. | Branches are green and stacked up waiting to go in. |
 | `/logbook:sweep` | Backlog hygiene — reconciles stale statuses, dedupes, archives what's done. | The board has drifted from reality. |
+| `/logbook:jot` | Writes a private note on your notepad. | A thought with no home yet — a hunch, a follow-up. |
+| `/logbook:recap` | What shipped recently, with resolutions and pull requests. | Standup, weekly summary, changelog draft. |
 
 `logbook:build` and `logbook:review` are **internal skills the loop dispatches**, not commands
 you type. `/logbook:loop` invokes them per log; you never call them directly.
