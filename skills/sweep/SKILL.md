@@ -72,6 +72,17 @@ Give one judge the **full annotated set** (all items + all evidence) for the cro
 
 If the set is too large for one context, shard by label/module and run a final merge pass.
 
+## Step 4.5 — Epics rot differently
+
+An **epic** is a container; its state follows its children, so the usual evidence bar does not apply. Bucket them by what their children say:
+
+- **All children done, epic still open** → the commonest epic rot. Close it with a resolution summarising what the set delivered, citing the children.
+- **Some children done, rest stale or obsolete** → the epic is not done. Fix or close the stale children first; the epic follows.
+- **No children at all** → this is a plan that never happened. Do not auto-close it; it is a NEEDS-HUMAN decision (revive with children, or abandon).
+- **Children that outlived their epic** → a log whose parent was deleted keeps working (the link is cleared, not the log). Flag orphans; they are usually fine, but a cluster of them means a plan was dropped mid-flight.
+
+Never close an epic on the evidence you would use for a log — a merged pull request closes a child, never the container.
+
 ## Step 5 — Verdicts and writes (director only)
 
 Every item lands in one bucket. **The auto-close evidence bar is mechanical, not vibes:** an item may auto-close ONLY if at least one of — (a) a **merged PR** implements it; (b) an identified **base-branch commit** implements it or removed its target code; (c) it is a **duplicate** of a specific surviving item, named. A judge's "looks done, high confidence" without (a)/(b)/(c) goes to the propose list. When in doubt, propose.

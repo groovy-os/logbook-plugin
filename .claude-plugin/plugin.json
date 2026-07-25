@@ -1,6 +1,6 @@
 {
   "name": "logbook",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Run the agentic engineering loop against a logbook board: file build-ready logs, explore blast radius, spec UX, plan collision-aware batches, and drive build \u2192 review \u2192 fix \u2192 merge with an orchestrator and subagents.",
   "author": {
     "name": "groovy-os",

@@ -76,6 +76,17 @@ One judge gets every item + verified footprint and returns:
 3. **Dependency edges** — A must merge before B starts (schema → consumer, endpoint → UI surface, keystone → siblings). Cite the evidence for each edge; invented dependencies serialize work for nothing.
 4. **Theme affinity** — items in the same module/epic batch naturally even without file overlap (warm context, one review narrative).
 
+## Step 4.5 — Respect existing epics
+
+An epic is a decomposition someone already made. Treat it as evidence, not as noise to re-derive:
+
+- **Never batch the epic itself.** It is a container with no diff; `logbook:loop` refuses it. Batch its children.
+- **Its children are a theme with a stated order.** The epic's description and notes usually say what comes first; prefer that ordering over one you infer, and cite it as the evidence for the dependency edge.
+- **Do not scatter one epic across many batches** without saying why. Children of one epic share context, and reviewing them together is cheaper. Split only when file collisions or a real dependency force it — and then say which batch carries which children.
+- **A part-built epic is an anchor.** If some children are already in progress with live branches, plan the rest around them rather than re-clustering the whole set.
+
+An epic with no children is a planning gap: report it as NOT BATCHED with that reason rather than silently skipping it.
+
 ## Step 5 — Compose and sequence the batches (director)
 
 From the graphs, build the plan:

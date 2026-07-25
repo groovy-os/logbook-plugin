@@ -69,6 +69,19 @@ Drop those into the template's Problem + Context + Test plan sections. A bug cap
    ```
 6. **Set `assignee_emails` only when the owner is obvious.** Use `list_team` if you need to resolve a name to an email. Most items going through the gauntlet are unassigned until an agent claims them.
 
+## Logs vs epics
+
+The board has two kinds. `log` is the default and is what you almost always file: one shippable deliverable, sized S/M/L. `epic` is a **container** — a body of work that only makes sense as several logs.
+
+The test is the pull request. **If one pull request could close it, it is a log**, however big. If closing it means several independent changes that land separately, it is an epic.
+
+- **Epics are not sized.** `size` is required on a log and must be OMITTED on an epic — a container has no t-shirt size, and giving it one makes the batch caps in `logbook:loop` count a thing that is never built.
+- **XL is the signal.** If you are about to file an XL log, stop: that is almost always an epic with S/M children. Filing the epic and its children is more useful than filing one log nobody can pick up.
+- **File the whole plan in one call.** `create_items` takes the epic and its children together — children point at the parent with `epic_index` (the 0-based index of the epic entry in the same batch) or `epic` (an existing epic's ref). Validation is all-or-nothing, so a bad reference aborts before anything is written and you can fix and retry.
+- **Epics do not nest**, and a child must be a log. `kind` is immutable after creation — you cannot promote a log to an epic later, so decide when filing.
+
+Each child still earns a full brief. An epic whose children are one-liners is a plan nobody can build; the container does not excuse thin logs.
+
 ## What makes an item "meaty" (the high-leverage sections)
 
 Read `references/item-template.md` for the full template. The sections that most change build quality:

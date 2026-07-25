@@ -54,6 +54,16 @@ Parse `$ARGUMENTS` into a list of item refs, staying at index level:
 
 **Sanity-check each item is a real build brief.** The triage pass (Step 1.6) reports thin items — one-liner, no acceptance criteria, no affected-files section. Do not build from guesswork: flesh it out with `logbook:add` or surface it to the user, and drop it from the batch until it's a brief.
 
+## Step 1.2 — Refuse epics
+
+An **epic** is a container, not work. It has no size, no diff and no pull request — its children are the deliverables. If a resolved ref comes back with `kind: "epic"`, do not queue it:
+
+- Drop it from the batch and say so plainly: *"LOG-NNN is an epic — building its children instead."*
+- Pull its children (they carry `epic: "LOG-NNN"` in their rows) and queue those, subject to the same tier caps.
+- If the epic has no children yet, that is a planning gap, not a build task. Surface it and stop — `logbook:add` files the children, or the human decides.
+
+Never mark an epic done because its children shipped. Its state follows theirs; closing the container by hand hides whether the work actually landed.
+
 ## Step 1.5 — Classify each item by size/risk, then enforce batch caps
 
 A tag is a *theme*, not a size filter — `--tag X --count 15` will happily grab multi-day features as if they were quick fixes. Before queuing, classify every resolved item into a tier and enforce the caps. Prefer the **`Size / risk tier`** line if the item's spec carries one (the `logbook:add` template adds it); otherwise derive it from the signals below.

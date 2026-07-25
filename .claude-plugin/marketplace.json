@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "The logbook plugin: commands and skills for running an agentic engineering loop against a hosted logbook board.",
-    "version": "0.2.1"
+    "version": "0.3.0"
   },
   "plugins": [
     {
@@ -20,7 +20,7 @@
         "mcp",
         "orchestration"
       ],
-      "version": "0.2.1",
+      "version": "0.3.0",
       "homepage": "https://www.logbk.dev",
       "license": "LicenseRef-Proprietary",
       "author": {
