@@ -1,6 +1,6 @@
 {
   "name": "logbook",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Run the agentic engineering loop against a logbook board: file build-ready logs, explore blast radius, spec UX, plan collision-aware batches, and drive build \u2192 review \u2192 fix \u2192 merge with an orchestrator and subagents.",
   "author": {
     "name": "groovy-os",
@@ -32,8 +32,8 @@
     "webhookWired": {
       "type": "boolean",
       "title": "GitHub merge webhook is configured",
-      "description": "When true, a merged pull request closes its log automatically and the loop leaves items in_progress. When false, the loop marks items done itself \u2014 otherwise finished work is never closed.",
-      "default": true
+      "description": "Leave false unless you have wired the logbook webhook to a GitHub repo. False means the loop closes logs itself when work finishes. True means it waits for a merged pull request to close them \u2014 which never happens without the webhook, so finished work would sit open forever.",
+      "default": false
     }
   }
 }
