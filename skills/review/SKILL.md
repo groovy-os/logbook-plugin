@@ -11,7 +11,7 @@ This is the reviewer role in the gauntlet. It MUST run with **fresh context** �
 
 ## Inputs you need
 
-- The logbook ref(s) and the PR number. `pull_item("LOG-NNN")` for the spec — especially **Acceptance criteria**, any **security / data-isolation considerations**, **Test plan**, and **Docs to update**. You review against the brief, not against your own idea of what the item should be. If you were handed a fused cluster, pull each ref: the diff must satisfy *all* of them.
+- The logbook ref(s) and the PR number. `pull_item("LOG-NNN")` for the spec — especially **Acceptance criteria**, any **security / data-isolation considerations**, **Test plan**, and **Docs to update**. You review against the brief, not against your own idea of what the item should be. If you were handed a fused cluster, pull each ref: the diff must satisfy *all* of them. An item may also carry an `overview` — the short read a person sees in front of the brief. It is derived from the description and is not the spec: review against the description's criteria. If the overview is marked `overview_stale: true`, or its criteria are not the description's word for word, note that under "Should consider" so the orchestrator can refresh it — the person approving this PR is reading that list.
 - The PR diff: `gh pr view <num> --json title,body,files,baseRefName` and `gh pr diff <num>`.
 - The repo's own rules: `CLAUDE.md` / `AGENTS.md` / `CONTRIBUTING.md`. These are gates, and they're the ones a generic reviewer can't know.
 

@@ -92,7 +92,7 @@ Every item lands in one bucket. **The auto-close evidence bar is mechanical, not
 | **DONE** | `update_items` with `status=done` + a changelog-quality `resolution` **citing the evidence** (PR # / commit sha, what shipped where). |
 | **OBSOLETE** | Close with `resolution` naming what superseded it (commit/epic/decision). |
 | **DUPLICATE** | Close the twin with `resolution="duplicate of LOG-NNN"`, `link_items` to the survivor, and move any unique detail from the twin onto the survivor as a note. |
-| **STALE BRIEF** | Keep open. Correct the item per the `logbook:add` discipline (fresh evidence refs, corrected approach) or, for a big blast-radius question, flag it for `/logbook:explore`. `add_note` what was corrected. |
+| **STALE BRIEF** | Keep open. Correct the item per the `logbook:add` discipline (fresh evidence refs, corrected approach) or, for a big blast-radius question, flag it for `/logbook:explore`. If the item already has an `overview`, rewrite it from the corrected brief in the same `update_item` so it is not left marked out of date — only then; the sweep never adds overviews to items that lack one. `add_note` what was corrected. |
 | **VALID** | Keep open, untouched — this is `/logbook:plan`'s input. If it lacks a size/risk tier, add one (you have the evidence in hand). |
 | **PROPOSE** | Ambiguous — assemble the kill list with per-item evidence and present it to the user for **one batched approve/reject**, then process approvals as above. |
 | **NEEDS-HUMAN** | A product/priority decision only the human can make → the bill of work. |

@@ -73,6 +73,27 @@ and coherent across a long batch instead of drowning in file dumps.
 
 ---
 
+## Overviews
+
+A log's description is a thorough build brief, written for the agent that builds it. That is
+on purpose, and it makes a log a long first read for a person. So when `/logbook:add` files a
+log it also writes a short **overview** that sits in front of the brief: what and why in two
+plain sentences, the acceptance criteria word for word, what is not included, and any open
+questions. On a board that is not about code, it is written in that board's own words.
+
+Nothing about how you use the commands changes — same commands, same questions, same flow.
+You see the overview first when a log is filed, and at the top of the log in the app.
+
+- **The brief stays the source of truth.** The overview is derived from it, and the skills
+  that rewrite a brief (`add`, `ux`, `explore`, `sweep`) rewrite the overview in the same
+  step. If a brief is edited some other way, the app marks the overview "may be out of date".
+- **Existing logs are left alone.** There is no backfill. To get one for a log you care about,
+  ask: "add an overview to LOG-123".
+- **It needs a logbook server that supports overviews.** Against one that does not, the
+  plugin files logs exactly as it did before and says nothing about it.
+
+---
+
 ## Configuration
 
 The plugin declares three user settings:

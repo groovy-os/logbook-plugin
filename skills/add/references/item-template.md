@@ -1,6 +1,6 @@
 # Logbook item template
 
-Paste this into the item `description` (markdown) and fill every section. Each section header notes *what it prevents* — if a section truly doesn't apply, write "N/A — <why>" rather than deleting it, so the builder knows it was considered, not forgotten.
+Paste this into the item `description` (markdown) and fill every section. Each section header notes *what it prevents* — if a section truly doesn't apply, write "N/A — <why>" rather than deleting it, so the builder knows it was considered, not forgotten. (The exceptions say OPTIONAL in their own comment — Open questions, and the three builder sections at the foot. Those are left out when empty, not marked N/A.)
 
 ---
 
@@ -34,7 +34,9 @@ Paste this into the item `description` (markdown) and fill every section. Each s
 ## Acceptance criteria
 <!-- Checkable bullets. Each becomes a task on the item. "Returns 404, not 403,
      for an id belonging to another account" — not "handle permissions correctly".
-     The reviewer renders READY/CHANGES against THIS list, so vague = unverifiable. -->
+     The reviewer renders READY/CHANGES against THIS list, so vague = unverifiable.
+     The overview copies these word for word, in this order, for the person who
+     reads it instead of this brief — so write each one to stand on its own. -->
 - [ ]
 - [ ]
 
@@ -84,3 +86,39 @@ Paste this into the item `description` (markdown) and fill every section. Each s
 ## Out of scope
 <!-- What this item explicitly does NOT cover, so the builder doesn't scope-creep
      and the reviewer doesn't flag missing-but-intentional gaps. -->
+
+## Open questions
+<!-- OPTIONAL — omit the section when there are none. Decisions only a person can
+     make that you could not settle from the repo or the conversation ("should
+     archived accounts be included?"). Write them down here; do not stop to ask
+     them. The overview repeats this list so the person sees it without reading
+     the brief. Not for things you could look up — look those up. -->
+
+---
+
+<!-- The three sections below are OPTIONAL and for CODE boards only. Each is for
+     the building agent. Include one only when you already have its content from
+     the repo you are in (you opened the file, read the rule, found the command)
+     — never from memory, and never by asking the person. When you don't have
+     it, DELETE the section rather than writing "N/A": unlike the sections
+     above, absence here means nothing. On a board that is not about code, leave
+     all three out. -->
+
+## Patterns to follow
+<!-- The existing code the builder should imitate, by path you opened in this
+     session: "new route follows `<path>`; its test follows `<path>`".
+     One or two exemplars, each with what to copy from it. Prevents the builder
+     inventing a second convention next to the one the repo already has. -->
+
+## Verification
+<!-- One line per acceptance criterion, in the same order: the command or check
+     that proves it — a scoped test invocation built from the Test plan's
+     command, or a concrete manual check when no test can show it. Prevents
+     "tests pass" standing in for "the criteria are met", and gives the reviewer
+     something to run. Do not restate the criteria differently here; quote them. -->
+
+## Do not touch
+<!-- Files or areas the repo's own agent instructions (CLAUDE.md / AGENTS.md) or
+     contributor docs mark as frozen, generated, or immutable, that sit near this
+     change — cite the rule. Different from Out of scope: that is about what the
+     item covers, this is about what the diff must not edit. -->
