@@ -131,6 +131,14 @@ stays one fetch away. Four writes:
   *"UX spec attached as `ux-spec.md` — job: <one line>. Build to its Depth bar, not the
   endpoints."* Do **not** paste the full spec into the description (that's the document's job).
   Append; don't clobber the original problem statement.
+  **If the item came back from `pull_item` with an `overview`, send the rewritten `overview`
+  in this same `update_item`** — you have just changed the description, and an overview left
+  behind reads "may be out of date" to the person. Derive it again from the description as it
+  now stands, in `logbook:add`'s fixed shape (what and why in two plain sentences — the job
+  you just wrote is the why; the description's acceptance criteria word for word; what is not
+  included; open questions). Same if it came back `overview_stale: true`. If the item has no
+  overview, or `update_item`'s input schema lists no `overview` argument, change nothing here
+  — don't add one unasked, and don't mention it.
 - **`add_task`** — add one depth task per affordance/state/section the build must satisfy
   (e.g. "Empty state with onboarding copy + primary action", "Attachment upload + dropzone",
   "Disable verdict actions until the round is submitted", "Replace 'Verdict: approve' with

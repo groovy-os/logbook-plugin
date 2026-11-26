@@ -49,9 +49,11 @@ Drop those into the template's Problem + Context + Test plan sections. A bug cap
      - **Nature** — defect vs. hardening vs. feature vs. chore.
    - **Strong bias against new labels.** `create_label` is a *taxonomy change*, not a tagging convenience — a backlog with 40 near-synonym labels is unsearchable. Watch the counts `list_labels` returns: a label sitting at count 1 is the sprawl to avoid. If no existing label is a clean fit, pick the **closest existing one** rather than minting a variant. Only when a genuinely new *category* is needed (not a synonym of an existing one) do you `create_label` — and on the autonomous path, **propose the new label to the user and get a yes before creating it** rather than spawning it unsupervised. An agent inventing labels is the same failure as filing duplicate items: taxonomy noise that makes the board lie.
 4. **Fill the template** in `references/item-template.md`. Every section earns its place — see that file for what each one prevents.
+   - **Then derive the overview from the brief you just wrote** — the short read a person sees in front of it. Its shape is fixed and lives in `references/overview.md`: what and why in two plain sentences, the acceptance criteria word for word, what is not included, any open questions. It is derived, never authored separately, and only written when the server offers the argument (step 5).
 5. **Write it via MCP.** `create_item` with `problem`, `title`, `size`, `summary`, `description` (the filled template as markdown), `priority`, `tasks: [...]` (the acceptance criteria as a checklist), and `labels`. For several at once use `create_items` (all-or-nothing validation — fix and retry safely).
    - **`size` is required** — the call fails validation without it. It is one of `S` / `M` / `L` / `XL`. Use the same judgement as the template's `Size / risk tier` line, so the tier the item is *filed* with is the tier `logbook:loop` reads back when it enforces batch caps. An item whose size and tier line disagree will get batched wrongly.
    - **`summary` is one line, max 120 chars, imperative.** It is what every index row shows, so it is what a planner or a teammate scanning fifty items actually reads — the title alone is rarely enough to decide whether an item belongs in a batch. Optional to the API, effectively mandatory in practice.
+   - **`overview` goes in the same call — if, and only if, the tool's input schema lists an `overview` argument.** It is a separate field from `summary`; never put the overview in `summary` or paste it into the `description`. If the schema as loaded in this session has no `overview`, the server does not support it yet: file exactly as above without it and do not mention it. Read the schema; never test by sending it. The same holds for each entry of `create_items` and for `update_item` / `update_items`.
 
    A minimal well-formed call looks like:
 
@@ -67,6 +69,10 @@ Drop those into the template's Problem + Context + Test plan sections. A bug cap
      labels: ["backend", "bug"]
    )
    ```
+
+   Where the server takes it, the same call also carries `overview: "<the derived overview, markdown>"` — its **Done when** list is those two `tasks` strings, unchanged.
+
+   **Telling the person what you filed** is what it has always been — the ref, the title, and whatever else you report today. When an overview was written, show it first, as written, and then the rest. When none was written, the message is unchanged.
 6. **Set `assignee_emails` only when the owner is obvious.** Use `list_team` if you need to resolve a name to an email. Most items going through the gauntlet are unassigned until an agent claims them.
 
 ## Logs vs epics
@@ -82,6 +88,19 @@ The test is the pull request. **If one pull request could close it, it is a log*
 
 Each child still earns a full brief. An epic whose children are one-liners is a plan nobody can build; the container does not excuse thin logs.
 
+## The overview: one source of truth, one derived view
+
+The brief is long on purpose — it is most of the prompt for the agent that builds it — and that makes it a hard first read for a person, more so on a board whose people are not developers. So every log filed here carries a short **overview** in front of the brief: what and why in two plain sentences, the acceptance criteria copied word for word, what is not included, and any open questions. Read `references/overview.md` for the fixed shape, two worked examples, and the rules.
+
+The parts that matter most:
+
+- **The spec stays the truth.** Write the brief first, in full; derive the overview from it. Nothing appears in the overview that the brief does not say, and the overview is never a reason to thin the brief.
+- **Criteria are copied, never paraphrased.** A reviewer renders its verdict against the spec's list, and a person reads the overview's list. They must be the same list.
+- **It reads naturally on the board it is on.** On a board that is not about code, no engineering vocabulary in it.
+- **It degrades to today's behaviour.** No `overview` argument in the tool's schema → file as before, silently.
+- **It never goes stale by this skill's hand.** Any time you rewrite an existing log's `description` or `problem` — fleshing out a thin item (which gets its overview like any new log), or correcting a brief that already has one — send the rewritten `overview` in the same `update_item`. A log that reads back `overview_stale: true` is one to work from the description, and to refresh while you are in there.
+- **No backfill.** Existing logs get an overview when someone asks for one ("add an overview to LOG-NNN" — `update_item` with only `overview`, the description untouched) or when you are rewriting their spec anyway. Never sweep the board adding them.
+
 ## What makes an item "meaty" (the high-leverage sections)
 
 Read `references/item-template.md` for the full template. The sections that most change build quality:
@@ -92,12 +111,15 @@ Read `references/item-template.md` for the full template. The sections that most
 - **Test plan** — name the scoped tests to run in the inner loop AND which new test(s) to add. Derive the command rather than guessing: use the configured `testCommand` plugin setting if it is set; if it is blank, detect it from the repo (the `scripts` block of the package manifest, the tool config in `pyproject.toml`/`Makefile`/`justfile`, or the job steps in the CI workflow) and prefer the scoped form of it. Pre-stating this means the builder doesn't have to infer coverage.
 - **Authorization / isolation considerations** — if this project documents an isolation, tenancy, or authorization gate in its own agent instructions (`CLAUDE.md` / `AGENTS.md`) or contributor docs, answer it explicitly here and cite the specific rule. If the project has no such documented gate, write "N/A" rather than inventing one — guessed security rules are worse than none.
 - **Doc-update list** — which docs must change in the same PR. Check the project's own docs policy (its agent instructions file usually names the hard gates) instead of assuming a fixed set.
+- **Patterns to follow, verification, do-not-touch (optional, code boards only)** — three short sections at the foot of the template that hand the builder what you already found in step 2: the existing file to imitate, the command that proves each criterion, and the files the repo's own rules say to leave alone. Fill them only from what you actually opened or read in this repo; leave them out entirely otherwise, and always on a board that is not about code. They are never a reason to ask the person anything.
 
 ## Anti-patterns
 
 - **Filing without searching first** → duplicate items. The auto-trigger path makes this the most likely failure mode (same test failure, many runs). Always dedup first; enrich an existing item rather than spawning a twin.
 - Authoring from memory without reading the code → wrong file refs, wrong patterns.
 - Acceptance criteria that aren't checkable ("make it better") → the reviewer can't render a verdict.
+- Rewording the acceptance criteria for the overview → the person and the reviewer are now reading two different lists. Copy them.
+- Putting file paths, the plan, or the tier in the overview → it is the short read for a person; the brief already holds all of that.
 - Omitting the test plan because "the builder will figure it out" → it will, slowly, after a review bounce.
 - Importing conventions from another codebase — file layouts, test commands, migration tools, review gates differ per repo. Read this repo's agent instructions and manifests; if a convention isn't documented here, don't assert it in the brief.
 

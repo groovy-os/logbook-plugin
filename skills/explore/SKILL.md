@@ -37,7 +37,7 @@ The output is one of three outcomes — file batchable siblings, correct the bri
 - **Link the cluster** with `link_items` so the relationship is visible, and put a **shared label** on them so `logbook:loop --tag <that>` can batch the whole family in one run.
 - **Update the original item** with `add_note` summarizing the blast radius: "Explored — found N other occurrences (LOG-aaa, LOG-bbb…), filed and linked; suggest batching under tag `<x>`."
 
-**B. Brief is inaccurate — the problem is real but the fix/evidence is stale.** `update_item` to correct the evidence (current line refs) and the recommended approach, and `add_note` explaining what changed and why, so the builder gets the corrected brief.
+**B. Brief is inaccurate — the problem is real but the fix/evidence is stale.** `update_item` to correct the evidence (current line refs) and the recommended approach, and `add_note` explaining what changed and why, so the builder gets the corrected brief. If the item carries an `overview` (the short read in front of the brief), rewrite it from the corrected brief and send it in that same `update_item`, per `logbook:add` — otherwise the person reading the log is shown one marked out of date. No overview on the item, or no `overview` argument in the tool's schema → leave it as it is.
 
 **C. Isolated & validated — found nothing else, fix checks out.** `add_note` a **trustworthy negative**: state the conclusion AND how you reached it — "Explored — confirmed isolated. Searched: <signatures/symbols>, across <surfaces/areas>; the proposed fix at <file:line> still applies. No sibling items needed." A negative result is only useful if a human can judge that the search was thorough — so document the search, never just "all good."
 
